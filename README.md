@@ -1,19 +1,18 @@
 # react-native-mock-location-detector
-Detects mocked location on both iOS and Android
+Detects mocked location on both iOS and Android.
+
 ## Installation
 
 ```sh
-npm install react-native-mock-location-detector
+yarn add react-native-mock-location-detector
 ```
 
 ## Usage
 
 ```js
-import { multiply } from "react-native-mock-location-detector";
+import { hasMockedLocation } from 'react-native-mock-location-detector'
 
-// ...
-
-const result = await multiply(3, 7);
+const isMocked = hasMockedLocation()
 ```
 
 ## Contributing
