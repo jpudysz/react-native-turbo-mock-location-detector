@@ -1,19 +1,38 @@
 # react-native-mock-location-detector
-Detects mocked location on both iOS and Android.
+
+### TODO
+- ◻️ Detects mocked location on iOS
+- ◻️ Detects mocked location on Android
+- ◻️ Supports Fabric architecture
+- ◻️ fallback for iOS < 15.0
 
 ## Installation
 
 ```sh
 yarn add react-native-mock-location-detector
+cd ios && pod install
 ```
 
 ## Usage
 
-```js
-import { hasMockedLocation } from 'react-native-mock-location-detector'
+```typescript
+import MockLocationDetector from 'react-native-mock-location-detector'
 
-const isMocked = hasMockedLocation()
+const hasMockedLocation: Nullable<boolean> = MockLocationDetector.isLocationMocked()
+
+// true - location is mocked
+// false - location is not mocked
+// null - for iOS < 15.0, always returns boolean for Android
 ```
+
+## Support
+
+| Lib version | RN version |
+|-------------|------------|
+| 0.1         | >0.68.0    |
+
+
+*Library may work on lower versions of React Native, but it wasn't tested!*
 
 ## Contributing
 
@@ -24,5 +43,3 @@ See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the 
 MIT
 
 ---
-
-Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)
