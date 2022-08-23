@@ -25,6 +25,7 @@
 		5709B34CF0A7D63546082F79 /* Pods-MockLocationDetectorExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MockLocationDetectorExample.release.xcconfig"; path = "Target Support Files/Pods-MockLocationDetectorExample/Pods-MockLocationDetectorExample.release.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-MockLocationDetectorExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MockLocationDetectorExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = MockLocationDetectorExample/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DA43CBD828B51609002AC470 /* MockLocationDetectorExample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MockLocationDetectorExample-Bridging-Header.h"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -77,6 +78,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				DA43CBD828B51609002AC470 /* MockLocationDetectorExample-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -133,12 +135,8 @@
 			attributes = {
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
-					00E356ED1AD99517003FC87E = {
-						CreatedOnToolsVersion = 6.2;
-						TestTargetID = 13B07F861A680F5B00A75B9A;
-					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1340;
 					};
 				};
 			};
@@ -297,6 +295,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.reactnativemocklocationdetector;
 				PRODUCT_NAME = MockLocationDetectorExample;
+				SWIFT_OBJC_BRIDGING_HEADER = "MockLocationDetectorExample-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -322,6 +321,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.reactnativemocklocationdetector;
 				PRODUCT_NAME = MockLocationDetectorExample;
+				SWIFT_OBJC_BRIDGING_HEADER = "MockLocationDetectorExample-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
