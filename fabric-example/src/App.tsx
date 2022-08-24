@@ -1,19 +1,48 @@
-import * as React from 'react'
-import { StyleSheet, View, Text } from 'react-native'
-import { multiply } from 'react-native-mock-location-detector'
+import React, { useEffect, useState } from 'react'
+import { StyleSheet, View, Platform, Text, ActivityIndicator } from 'react-native'
+import { isMockingLocation } from 'react-native-mock-location-detector'
+import { PERMISSIONS, Permission } from 'react-native-permissions'
+import { usePermission } from './usePermission'
+
+const LOCATION_PERMISSION = Platform.select({
+    ios: PERMISSIONS.IOS.LOCATION_WHEN_IN_USE,
+    android: PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+})
 
 export const App = () => {
-    const [result, setResult] = React.useState<number>()
+    const [isLocationMocked, setIsLocationMocked] = useState<boolean>()
+    const { startPermissionFlow, isEnabled } = usePermission(LOCATION_PERMISSION as Permission)
 
-    React.useEffect(() => {
-        multiply(3, 7).then(setResult)
-    }, [])
+    useEffect(() => {
+        if (isEnabled) {
+            isMockingLocation()
+                .then(result => setIsLocationMocked(result.isLocationMocked))
+                .catch(error => console.log(error.message))
+
+            return
+        }
+
+        startPermissionFlow()
+    }, [isEnabled, startPermissionFlow])
+
+    const getMockState = () => {
+        return isLocationMocked
+            ? 'mocked'
+            : 'not mocked'
+    }
 
     return (
         <View style={styles.container}>
-            <Text>
-                Result: {result}
-            </Text>
+            {isLocationMocked === undefined
+                ? (
+                    <ActivityIndicator />
+                )
+                : (
+                    <Text>
+                        Location is {getMockState()}
+                    </Text>
+                )
+            }
         </View>
     )
 }

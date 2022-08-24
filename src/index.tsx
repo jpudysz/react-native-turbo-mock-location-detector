@@ -24,6 +24,10 @@ const MockLocationDetector = MockLocationDetectorModule
       }
     )
 
-export function multiply(a: number, b: number): Promise<number> {
-  return MockLocationDetector.multiply(a, b)
+type MockLocationDetectorResult = {
+    isLocationMocked: boolean
+}
+
+export const isMockingLocation = (): Promise<MockLocationDetectorResult> => {
+    return MockLocationDetector.isMockingLocation()
 }

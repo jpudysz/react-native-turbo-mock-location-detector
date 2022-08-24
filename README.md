@@ -16,13 +16,22 @@ cd ios && pod install
 ## Usage
 
 ```typescript
-import MockLocationDetector from 'react-native-mock-location-detector'
+import { isMockingLocation } from 'react-native-mock-location-detector'
 
-const hasMockedLocation: Nullable<boolean> = MockLocationDetector.isLocationMocked()
+useEffect(() => {
+    isMockingLocation()
+        .then(result => {
+            // result.isLocationMocked: boolean
+            // boolean result for Android and iOS >= 15.0
+        })
+        .catch(error => {
+            // error.message
+            // no GPS enabled
+            // no permission to access location
+            // iOS lower than 15.0
+        })
+}, [])
 
-// true - location is mocked
-// false - location is not mocked
-// null - for iOS < 15.0, always returns boolean for Android
 ```
 
 ## Support
