@@ -1,6 +1,6 @@
 {
   "name": "react-native-mock-location-detector",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Package helps to detect mocked location on both Android and iOS",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",

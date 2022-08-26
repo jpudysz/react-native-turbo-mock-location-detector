@@ -1,6 +1,6 @@
 # react-native-turbo-mock-location-detector
 
-Library was written with TurboModules and Codegen. It alsp supports both old and new architectures.
+Library was written with TurboModules and Codegen. It also supports both old and new architectures.
 
 ## Installation
 
