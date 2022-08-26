@@ -9,17 +9,31 @@
 
 RCT_EXPORT_MODULE()
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
+RCT_EXPORT_METHOD(isMockingLocation:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self checkIfGPSIsEnabled] == NO) {
+            reject(@"0", @"GPS is not enabled", nil);
+            
+            return;
+        }
+        
+        if ([self hasLocationPermission] == NO) {
+            reject(@"1", @"You have no permission to access location", nil);
+            
+            return;
+        }
+
+        self.resolve = resolve;
+        self.reject = reject;
+        
         self.locationManager = [[CLLocationManager alloc] init];
         self.locationManager.delegate = self;
 
         self.locationManager.distanceFilter = kCLDistanceFilterNone;
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    }
-    return self;
+
+        [self.locationManager requestLocation];
+    });
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
@@ -34,14 +48,14 @@ RCT_EXPORT_MODULE()
 
         self.resolve(dict);
     } else {
-        self.reject(@"error", @"Not available on iOS lower than 15.0", nil);
+        self.reject(@"2", @"Couldn't determine if location is mocked", nil);
     }
 
     [self cleanUp];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    self.reject(@"error", @"Location is not available", nil);
+    self.reject(@"2", @"Couldn't determine if location is mocked", nil);
 
     [self cleanUp];
 }
@@ -56,24 +70,15 @@ RCT_EXPORT_MODULE()
     return [CLLocationManager locationServicesEnabled];
 }
 
-
-RCT_EXPORT_METHOD(isMockingLocation:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
-    if ([self checkIfGPSIsEnabled] == NO) {
-        [[NSException exceptionWithName:@"error"
-                      reason:@"Location service is unavailable"
-                      userInfo:nil]
-                      raise];
-    }
-
-    self.resolve = resolve;
-    self.reject = reject;
-
-    [self.locationManager requestLocation];
+- (BOOL)hasLocationPermission {
+    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
+    
+    return status == kCLAuthorizationStatusAuthorizedAlways || status == kCLAuthorizationStatusAuthorizedWhenInUse;
 }
 
 + (BOOL)requiresMainQueueSetup
 {
-  return NO;
+  return YES;
 }
 
 // Don't compile this code when we build for the old architecture.

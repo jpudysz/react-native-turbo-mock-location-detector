@@ -47,7 +47,7 @@ useEffect(() => {
                 }
                 case MockLocationDetectorErrorCode.CantDetermine: {
                     // always for iOS < 15.0
-                    // for android if at least one location sample wasn't fetched for 10000 ms
+                    // for android if coudln't fetch GPS position
                 }
             }
         })

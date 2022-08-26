@@ -15,7 +15,7 @@ export const App = () => {
     const checkIfLocationisMocked = () => {
         isMockingLocation()
             .then(result => setIsLocationMocked(result.isLocationMocked))
-            .catch((error: MockLocationDetectorError) => console.log(error.message))
+            .catch((error: MockLocationDetectorError) => console.log(JSON.stringify(error)))
     }
 
     useEffect(() => {

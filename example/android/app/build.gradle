@@ -287,6 +287,8 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+
+    implementation project(':reactnativemocklocationdetector')
 }
 
 if (isNewArchitectureEnabled()) {

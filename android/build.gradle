@@ -7,7 +7,7 @@ buildscript {
         }
 
         dependencies {
-            classpath 'com.android.tools.build:gradle:7.0.4'
+            classpath 'com.android.tools.build:gradle:3.5.3'
         }
     }
 }
@@ -50,25 +50,6 @@ android {
                 }
             }
         }
-    }
-
-    def reactAndroidProjectDir = project(':ReactAndroid').projectDir
-    def packageReactNdkLibs = tasks.register("packageReactNdkLibs", Copy) {
-        dependsOn(":ReactAndroid:packageReactNdkLibsForBuck")
-        dependsOn("generateCodegenArtifactsFromSchema")
-        from("$reactAndroidProjectDir/src/main/jni/prebuilt/lib")
-        into("$buildDir/react-ndk/exported")
-    }
-
-    afterEvaluate {
-        preBuild.dependsOn(packageReactNdkLibs)
-        configureNdkBuildDebug.dependsOn(preBuild)
-        configureNdkBuildRelease.dependsOn(preBuild)
-    }
-
-    packagingOptions {
-        pickFirst '**/libhermes.so'
-        pickFirst '**/libjsc.so'
     }
 
     if (isNewArchitectureEnabled()) {

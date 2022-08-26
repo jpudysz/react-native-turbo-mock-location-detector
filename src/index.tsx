@@ -40,5 +40,12 @@ export type MockLocationDetectorError = {
 }
 
 export const isMockingLocation = (): Promise<MockLocationDetectorResult> => {
-    return MockLocationDetector.isMockingLocation()
+    return MockLocationDetector
+        .isMockingLocation()
+        .catch(({ code, message }: MockLocationDetectorError) => {
+            throw {
+                code,
+                message,
+            }
+        })
 }

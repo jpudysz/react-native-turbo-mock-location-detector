@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.Promise;
+import com.facebook.react.bridge.ReactContextBaseJavaModule;
+import com.facebook.react.bridge.ReactMethod;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 
@@ -23,7 +25,7 @@ public class MockLocationDetector extends ReactContextBaseJavaModule {
         return MockLocationDetectorImpl.NAME;
     }
 
-    @Override
+    @ReactMethod()
     public void isMockingLocation(Promise promise) {
         MockLocationDetectorImpl.isMockingLocation(
             this.context,
