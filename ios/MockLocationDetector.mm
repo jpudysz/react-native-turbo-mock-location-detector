@@ -15,7 +15,7 @@ RCT_EXPORT_MODULE()
     if (self) {
         self.locationManager = [[CLLocationManager alloc] init];
         self.locationManager.delegate = self;
-        
+
         self.locationManager.distanceFilter = kCLDistanceFilterNone;
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     }
@@ -25,24 +25,24 @@ RCT_EXPORT_MODULE()
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     CLLocation *currentLocation = [locations objectAtIndex:0];
     [self.locationManager stopUpdatingLocation];
-    
+
     if (@available(iOS 15, *)) {
         CLLocationSourceInformation *sourceInformation = [currentLocation sourceInformation];
         NSDictionary *dict = @{
             @"isLocationMocked": @(sourceInformation.isSimulatedBySoftware)
         };
-        
+
         self.resolve(dict);
     } else {
         self.reject(@"error", @"Not available on iOS lower than 15.0", nil);
     }
-    
+
     [self cleanUp];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     self.reject(@"error", @"Location is not available", nil);
-    
+
     [self cleanUp];
 }
 
@@ -64,10 +64,10 @@ RCT_EXPORT_METHOD(isMockingLocation:(RCTPromiseResolveBlock)resolve reject:(RCTP
                       userInfo:nil]
                       raise];
     }
-        
+
     self.resolve = resolve;
     self.reject = reject;
-    
+
     [self.locationManager requestLocation];
 }
 

@@ -28,6 +28,17 @@ type MockLocationDetectorResult = {
     isLocationMocked: boolean
 }
 
+export enum MockLocationDetectorErrorCode {
+    GPSNotEnabled = 0,
+    NoLocationPermissionEnabled = 1,
+    CantDetermine = 2
+}
+
+export type MockLocationDetectorError = {
+    message: string,
+    code: MockLocationDetectorErrorCode
+}
+
 export const isMockingLocation = (): Promise<MockLocationDetectorResult> => {
     return MockLocationDetector.isMockingLocation()
 }

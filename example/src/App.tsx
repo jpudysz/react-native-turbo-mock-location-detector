@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, View, Platform, Text, ActivityIndicator } from 'react-native'
-import { isMockingLocation } from 'react-native-mock-location-detector'
+import { StyleSheet, View, Platform, Text, ActivityIndicator, Button } from 'react-native'
+import { isMockingLocation, MockLocationDetectorError } from 'react-native-mock-location-detector'
 import { PERMISSIONS, Permission } from 'react-native-permissions'
 import { usePermission } from './usePermission'
 
@@ -12,18 +12,21 @@ const LOCATION_PERMISSION = Platform.select({
 export const App = () => {
     const [isLocationMocked, setIsLocationMocked] = useState<boolean>()
     const { startPermissionFlow, isEnabled } = usePermission(LOCATION_PERMISSION as Permission)
+    const checkIfLocationisMocked = () => {
+        isMockingLocation()
+            .then(result => setIsLocationMocked(result.isLocationMocked))
+            .catch((error: MockLocationDetectorError) => console.log(error.message))
+    }
 
     useEffect(() => {
-        if (isEnabled) {
-            isMockingLocation()
-                .then(result => setIsLocationMocked(result.isLocationMocked))
-                .catch(error => console.log(error.message))
+        if (isEnabled && isLocationMocked === undefined) {
+            checkIfLocationisMocked()
 
             return
         }
 
         startPermissionFlow()
-    }, [isEnabled, startPermissionFlow])
+    }, [isEnabled, isLocationMocked, startPermissionFlow])
 
     const getMockState = () => {
         return isLocationMocked
@@ -38,9 +41,18 @@ export const App = () => {
                     <ActivityIndicator />
                 )
                 : (
-                    <Text>
-                        Location is {getMockState()}
-                    </Text>
+                    <View>
+                        <Text>
+                            Location is {getMockState()}
+                        </Text>
+                        <Button
+                            title="Try again"
+                            onPress={() => {
+                                setIsLocationMocked(undefined)
+                                checkIfLocationisMocked()
+                            }}
+                        />
+                    </View>
                 )
             }
         </View>
