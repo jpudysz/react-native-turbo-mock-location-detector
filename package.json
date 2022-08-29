@@ -1,6 +1,6 @@
 {
   "name": "react-native-turbo-mock-location-detector",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Package helps to detect mocked location on both Android and iOS",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -112,7 +112,10 @@
     ],
     "rules": {
       "prettier/prettier": 0,
-      "semi": ["error", "never"]
+      "semi": [
+        "error",
+        "never"
+      ]
     }
   },
   "eslintIgnore": [
