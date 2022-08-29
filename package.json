@@ -1,6 +1,6 @@
 {
-  "name": "react-native-mock-location-detector",
-  "version": "1.0.0",
+  "name": "react-native-turbo-mock-location-detector",
+  "version": "1.0.1",
   "description": "Package helps to detect mocked location on both Android and iOS",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -45,7 +45,8 @@
   },
   "homepage": "https://github.com/jpudysz/react-native-mock-location-detector#readme",
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
   },
   "devDependencies": {
     "@arkweid/lefthook": "0.7.7",

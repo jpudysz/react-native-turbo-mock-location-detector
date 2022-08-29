@@ -47,7 +47,7 @@ useEffect(() => {
                 }
                 case MockLocationDetectorErrorCode.CantDetermine: {
                     // always for iOS < 15.0
-                    // for android if coudln't fetch GPS position
+                    // for android and iOS if couldn't fetch GPS position
                 }
             }
         })
