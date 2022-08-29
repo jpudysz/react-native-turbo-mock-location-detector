@@ -44,7 +44,7 @@ export const isMockingLocation = (): Promise<MockLocationDetectorResult> => {
         .isMockingLocation()
         .catch(({ code, message }: MockLocationDetectorError) => {
             throw {
-                code: parseInt(code, 10),
+                code,
                 message,
             }
         })
