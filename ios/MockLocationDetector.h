@@ -5,4 +5,5 @@
     @property CLLocationManager *locationManager;
     @property RCTPromiseResolveBlock resolve;
     @property RCTPromiseRejectBlock reject;
+    @property NSNumber *cachedIsLocationMocked;
 @end
