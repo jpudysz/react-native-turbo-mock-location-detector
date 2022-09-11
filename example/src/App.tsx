@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, Platform, Text, ActivityIndicator, Button } from 'react-native'
-import { isMockingLocation, MockLocationDetectorError } from 'react-native-mock-location-detector'
+import { isMockingLocation, MockLocationDetectorError } from 'react-native-turbo-mock-location-detector'
 import { PERMISSIONS, Permission } from 'react-native-permissions'
 import { usePermission } from './usePermission'
 
@@ -42,7 +42,7 @@ export const App = () => {
                 )
                 : (
                     <View>
-                        <Text>
+                        <Text style={styles.result}>
                             Location is {getMockState()}
                         </Text>
                         <Button
@@ -50,6 +50,16 @@ export const App = () => {
                             onPress={() => {
                                 setIsLocationMocked(undefined)
                                 checkIfLocationisMocked()
+                            }}
+                        />
+                        <Button
+                            title="Try again 10 times"
+                            onPress={() => {
+                                Array.from(new Array(10))
+                                    .forEach(() => {
+                                        setIsLocationMocked(undefined)
+                                        checkIfLocationisMocked()
+                                    })
                             }}
                         />
                     </View>
@@ -64,10 +74,14 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: 'white',
     },
     box: {
         width: 60,
         height: 60,
         marginVertical: 20,
+    },
+    result: {
+        textAlign: 'center',
     },
 })

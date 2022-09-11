@@ -61,14 +61,13 @@ useEffect(() => {
 |-------------|------------|
 | 1.0         | >= 0.68.0  |
 
+*Library may work on lower versions of React Native (with paper architecture), but it wasn't tested!*
+
 ## Testing
 Library was tested:
 - on iOS with the use of [Location Changer](https://www.ultfone.com/ios-location-changer.html)
 - on Android with the use of [Mock Locations](https://play.google.com/store/apps/details?id=ru.gavrikov.mocklocations&hl=pl&gl=US)
 
-
-
-*Library may work on lower versions of React Native (with paper architecture), but it wasn't tested!*
 
 ## Contributing
 
