@@ -6,7 +6,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 
-import androidx.core.content.PermissionChecker;;
+import androidx.core.content.PermissionChecker;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.common.SystemClock;
