@@ -10,23 +10,25 @@ const LOCATION_PERMISSION = Platform.select({
 })
 
 export const App = () => {
+    const [isLoading, setLoading] = useState(false)
     const [isLocationMocked, setIsLocationMocked] = useState<boolean>()
     const { startPermissionFlow, isEnabled } = usePermission(LOCATION_PERMISSION as Permission)
     const checkIfLocationisMocked = () => {
+        setLoading(true)
+
         isMockingLocation()
             .then(result => setIsLocationMocked(result.isLocationMocked))
             .catch((error: MockLocationDetectorError) => console.log(JSON.stringify(error)))
+            .finally(() => setLoading(false))
     }
 
     useEffect(() => {
-        if (isEnabled && isLocationMocked === undefined) {
-            checkIfLocationisMocked()
+        if (!isEnabled) {
+            startPermissionFlow()
 
             return
         }
-
-        startPermissionFlow()
-    }, [isEnabled, isLocationMocked, startPermissionFlow])
+    }, [isEnabled, startPermissionFlow])
 
     const getMockState = () => {
         return isLocationMocked
@@ -36,7 +38,7 @@ export const App = () => {
 
     return (
         <View style={styles.container}>
-            {isLocationMocked === undefined
+            {isLoading
                 ? (
                     <ActivityIndicator />
                 )
