@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DA5A9C5228B6164A005A0DC6 /* MockLocationDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA5A9C5128B6164A005A0DC6 /* MockLocationDetector.mm */; };
+		DADE62E328CE519E007EBF4A /* MockLocationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = DADE62E228CE519E007EBF4A /* MockLocationRequest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,6 +27,8 @@
 		134814201AA4EA6300B7C361 /* libMockLocationDetector.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMockLocationDetector.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3E7B5881CC2AC0600A0062D /* MockLocationDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MockLocationDetector.h; sourceTree = "<group>"; };
 		DA5A9C5128B6164A005A0DC6 /* MockLocationDetector.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MockLocationDetector.mm; sourceTree = "<group>"; };
+		DADE62E228CE519E007EBF4A /* MockLocationRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MockLocationRequest.m; sourceTree = "<group>"; };
+		DADE62E428CE51AF007EBF4A /* MockLocationRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MockLocationRequest.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +53,8 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				DADE62E428CE51AF007EBF4A /* MockLocationRequest.h */,
+				DADE62E228CE519E007EBF4A /* MockLocationRequest.m */,
 				DA5A9C5128B6164A005A0DC6 /* MockLocationDetector.mm */,
 				B3E7B5881CC2AC0600A0062D /* MockLocationDetector.h */,
 				134814211AA4EA7D00B7C361 /* Products */,
@@ -114,6 +119,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DADE62E328CE519E007EBF4A /* MockLocationRequest.m in Sources */,
 				DA5A9C5228B6164A005A0DC6 /* MockLocationDetector.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

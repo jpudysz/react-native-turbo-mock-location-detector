@@ -1,9 +1,8 @@
 #import <React/RCTBridgeModule.h>
 #import "CoreLocation/CoreLocation.h"
+#import "MockLocationRequest.h"
 
 @interface MockLocationDetector : NSObject <RCTBridgeModule, CLLocationManagerDelegate>
-    @property CLLocationManager *locationManager;
-    @property RCTPromiseResolveBlock resolve;
-    @property RCTPromiseRejectBlock reject;
-    @property NSNumber *cachedIsLocationMocked;
+    @property CLLocationManager *m_locationManager;
+    @property NSMutableArray<MockLocationRequest *> *m_requests;
 @end

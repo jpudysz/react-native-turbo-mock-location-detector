@@ -1,4 +1,5 @@
 #import "MockLocationDetector.h"
+#import "MockLocationRequest.h"
 #import <CoreLocation/CoreLocation.h>
 
 #ifdef RCT_NEW_ARCH_ENABLED
@@ -9,92 +10,34 @@
 
 RCT_EXPORT_MODULE()
 
-RCT_EXPORT_METHOD(isMockingLocation:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if(![self getCachedVersionOrFail:resolve reject:reject]) {
-            return;
-        }
+#pragma mark - Private API
 
-        if ([self checkIfGPSIsEnabled] == NO) {
-            reject(@"0", @"GPS is not enabled", nil);
-
-            return;
-        }
-
-        if ([self hasLocationPermission] == NO) {
-            reject(@"1", @"You have no permission to access location", nil);
-
-            return;
-        }
-
-        self.resolve = resolve;
-        self.reject = reject;
-
-        self.locationManager = [[CLLocationManager alloc] init];
-        self.locationManager.delegate = self;
-
-        self.locationManager.distanceFilter = kCLDistanceFilterNone;
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-
-        [self.locationManager requestLocation];
-    });
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
-    CLLocation *currentLocation = [locations objectAtIndex:0];
-    [self.locationManager stopUpdatingLocation];
-
-    if (@available(iOS 15, *)) {
-        CLLocationSourceInformation *sourceInformation = [currentLocation sourceInformation];
-        NSDictionary *dict = @{
-            @"isLocationMocked": @(sourceInformation.isSimulatedBySoftware)
-        };
-
-        self.cachedIsLocationMocked = [NSNumber numberWithBool:sourceInformation.isSimulatedBySoftware];
-        self.resolve(dict);
-    } else {
-        self.reject(@"2", @"Couldn't determine if location is mocked", nil);
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _m_requests = [NSMutableArray new];
     }
-
-    [self cleanUp];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    self.reject(@"2", @"Couldn't determine if location is mocked", nil);
-
-    [self cleanUp];
-}
-
-- (void)cleanUp {
-    self.locationManager = nil;
-    self.resolve = nil;
-    self.reject = nil;
-    self.cachedIsLocationMocked = nil;
+    return self;
 }
 
 - (void)dealloc {
     [self cleanUp];
 }
 
-- (BOOL)getCachedVersionOrFail:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
-    if (!self.resolve && !self.reject) {
-        return YES;
-    }
+- (void)cleanUp {
+    [self.m_requests removeAllObjects];
+    self.m_locationManager = nil;
+}
 
-    // other promise in progress
-    if (self.cachedIsLocationMocked != nil) {
-        NSDictionary *dict = @{
-            @"isLocationMocked": @([self.cachedIsLocationMocked boolValue])
-        };
+- (dispatch_queue_t)methodQueue
+{
+  return dispatch_get_main_queue();
+}
 
-        resolve(dict);
-
-        return NO;
-    }
-
-    reject(@"2", @"Couldn't determine if location is mocked", nil);
-
-    return NO;
++ (BOOL)requiresMainQueueSetup
+{
+  return YES;
 }
 
 - (BOOL)checkIfGPSIsEnabled {
@@ -107,9 +50,60 @@ RCT_EXPORT_METHOD(isMockingLocation:(RCTPromiseResolveBlock)resolve reject:(RCTP
     return status == kCLAuthorizationStatusAuthorizedAlways || status == kCLAuthorizationStatusAuthorizedWhenInUse;
 }
 
-+ (BOOL)requiresMainQueueSetup
-{
-  return YES;
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    CLLocation *currentLocation = [locations objectAtIndex:0];
+
+    if (@available(iOS 15, *)) {
+        CLLocationSourceInformation *sourceInformation = [currentLocation sourceInformation];
+        NSDictionary *dict = @{
+            @"isLocationMocked": @(sourceInformation.isSimulatedBySoftware)
+        };
+
+        for (MockLocationRequest *request in self.m_requests) {
+            request.m_resolve(dict);
+        }
+    } else {
+        for (MockLocationRequest *request in self.m_requests) {
+            request.m_reject(@"2", @"Couldn't determine if location is mocked", nil);
+        }
+    }
+
+    [self cleanUp];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    for (MockLocationRequest *request in self.m_requests) {
+        request.m_reject(@"2", @"Couldn't determine if location is mocked", nil);
+    }
+
+    [self cleanUp];
+}
+
+#pragma mark - Public API
+
+RCT_EXPORT_METHOD(isMockingLocation:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
+    if ([self checkIfGPSIsEnabled] == NO) {
+        reject(@"0", @"GPS is not enabled", nil);
+
+        return;
+    }
+
+    if ([self hasLocationPermission] == NO) {
+        reject(@"1", @"You have no permission to access location", nil);
+
+        return;
+    }
+
+    self.m_locationManager = [CLLocationManager new];
+
+    self.m_locationManager.delegate = self;
+    self.m_locationManager.distanceFilter = kCLDistanceFilterNone;
+    self.m_locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+
+    MockLocationRequest *request = [[MockLocationRequest alloc] initWithPromise:resolve reject:reject];
+
+    [self.m_requests addObject:request];
+    [self.m_locationManager requestLocation];
 }
 
 // Don't compile this code when we build for the old architecture.

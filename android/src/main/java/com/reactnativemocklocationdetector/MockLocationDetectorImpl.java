@@ -2,26 +2,19 @@ package com.reactnativemocklocationdetector;
 
 import android.Manifest;
 import android.content.Context;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 
-import androidx.annotation.NonNull;
 import androidx.core.content.PermissionChecker;
-
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.WritableMap;
-import com.facebook.react.bridge.WritableNativeMap;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.Priority;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import com.facebook.react.common.SystemClock;
 
 public class MockLocationDetectorImpl {
     public static final String NAME = "MockLocationDetector";
 
-    public static void isMockingLocation(ReactApplicationContext context, FusedLocationProviderClient locationProviderClient, Promise promise) {
+    public static void isMockingLocation(ReactApplicationContext context, Promise promise) {
         if (!MockLocationDetectorImpl.checkIfGPSIsEnabled(context)) {
             promise.reject("0", "GPS is not enabled");
 
@@ -37,23 +30,18 @@ public class MockLocationDetectorImpl {
             return;
         }
 
-        Task<Location> task = locationProviderClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null);
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        String provider = locationManager.getBestProvider(new Criteria(), true);
+        Location location = locationManager.getLastKnownLocation(provider);
 
-        task.addOnSuccessListener(new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                WritableMap result = new WritableNativeMap();
-                result.putBoolean("isLocationMocked", location.isFromMockProvider());
+        if (location != null && (SystemClock.currentTimeMillis() - location.getTime() < 5 * 1000)) {
+            promise.resolve(MockLocationRequest.prepareResult(location.isFromMockProvider()));
 
-                promise.resolve(result);
-            }
-        });
-        task.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                promise.reject("2", "Couldn't determine if location is mocked");
-            }
-        });
+            return;
+        }
+
+        new MockLocationRequest(locationManager, provider, promise)
+            .getLocation();
     }
 
     private static boolean checkIfGPSIsEnabled(ReactApplicationContext context) {

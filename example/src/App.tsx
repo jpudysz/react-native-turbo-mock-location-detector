@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, Platform, Text, ActivityIndicator, Button } from 'react-native'
-import { isMockingLocation, MockLocationDetectorError } from 'react-native-mock-location-detector'
+import { isMockingLocation, MockLocationDetectorError } from 'react-native-turbo-mock-location-detector'
 import { PERMISSIONS, Permission } from 'react-native-permissions'
 import { usePermission } from './usePermission'
 
@@ -10,23 +10,25 @@ const LOCATION_PERMISSION = Platform.select({
 })
 
 export const App = () => {
+    const [isLoading, setLoading] = useState(false)
     const [isLocationMocked, setIsLocationMocked] = useState<boolean>()
     const { startPermissionFlow, isEnabled } = usePermission(LOCATION_PERMISSION as Permission)
     const checkIfLocationisMocked = () => {
+        setLoading(true)
+
         isMockingLocation()
             .then(result => setIsLocationMocked(result.isLocationMocked))
             .catch((error: MockLocationDetectorError) => console.log(JSON.stringify(error)))
+            .finally(() => setLoading(false))
     }
 
     useEffect(() => {
-        if (isEnabled && isLocationMocked === undefined) {
-            checkIfLocationisMocked()
+        if (!isEnabled) {
+            startPermissionFlow()
 
             return
         }
-
-        startPermissionFlow()
-    }, [isEnabled, isLocationMocked, startPermissionFlow])
+    }, [isEnabled, startPermissionFlow])
 
     const getMockState = () => {
         return isLocationMocked
@@ -36,13 +38,13 @@ export const App = () => {
 
     return (
         <View style={styles.container}>
-            {isLocationMocked === undefined
+            {isLoading
                 ? (
                     <ActivityIndicator />
                 )
                 : (
                     <View>
-                        <Text>
+                        <Text style={styles.result}>
                             Location is {getMockState()}
                         </Text>
                         <Button
@@ -50,6 +52,16 @@ export const App = () => {
                             onPress={() => {
                                 setIsLocationMocked(undefined)
                                 checkIfLocationisMocked()
+                            }}
+                        />
+                        <Button
+                            title="Try again 10 times"
+                            onPress={() => {
+                                Array.from(new Array(10))
+                                    .forEach(() => {
+                                        setIsLocationMocked(undefined)
+                                        checkIfLocationisMocked()
+                                    })
                             }}
                         />
                     </View>
@@ -64,10 +76,14 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: 'white',
     },
     box: {
         width: 60,
         height: 60,
         marginVertical: 20,
+    },
+    result: {
+        textAlign: 'center',
     },
 })
