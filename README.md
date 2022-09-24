@@ -57,9 +57,9 @@ useEffect(() => {
 
 ## Support
 
-| Lib version | RN version |
-|-------------|------------|
-| 1.0         | >= 0.68.0  |
+| Lib version | RN version        |
+|-------------|-------------------|
+| 1.0         | 0.68, 0.69, 0.70  |
 
 *Library may work on lower versions of React Native (with paper architecture), but it wasn't tested!*
 
