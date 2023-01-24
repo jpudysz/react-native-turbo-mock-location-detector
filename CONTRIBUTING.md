@@ -12,27 +12,24 @@ yarn
 
 > While it's possible to use [`npm`](https://github.com/npm/cli), the tooling is built around [`yarn`](https://classic.yarnpkg.com/), so you'll have an easier time if you use `yarn` for development.
 
-While developing, you can run the [example app](/example/) or [fabric example app](/fabric-example/) to test your changes. Any changes you make in your library's JavaScript code will be reflected in the example and fabric-example app without a rebuild. If you change any native code, then you'll need to rebuild the corresponding app.
+While developing, you can run the [example app](/example/) to test your changes. Any changes you make in your library's JavaScript code will be reflected in the example and fabric-example app without a rebuild. If you change any native code, then you'll need to rebuild the corresponding app.
 
 To start the packager:
 
 ```sh
 yarn example start
-yarn fabric-example start
 ```
 
 To run the example app on Android:
 
 ```sh
 yarn example android
-yarn fabric-example android
 ```
 
 To run the example app on iOS:
 
 ```sh
 yarn example ios
-yarn fabric-example ios
 ```
 
 
@@ -56,11 +53,7 @@ yarn test
 ```
 To edit the Objective-C files, open `example/ios/MockLocationDetectorExample.xcworkspace` in XCode and find the source files at `Pods > Development Pods > react-native-mock-location-detector`.
 
-Follow the same steps for fabric-example project.
-
 To edit the Kotlin files, open `example/android` in Android studio and find the source files at `reactnativemocklocationdetector` under `Android`.
-
-Follow the same steps for fabric-example project.
 
 ### Commit message convention
 
@@ -102,11 +95,8 @@ The `package.json` file contains various scripts for common tasks:
 - `yarn lint`: lint files with ESLint.
 - `yarn test`: run unit tests with Jest.
 - `yarn example start`: start the Metro server for the example app.
-- `yarn fabric-example start`: start the Metro server for the example app.
 - `yarn example android`: run the example app on Android.
 - `yarn example ios`: run the example app on iOS.
-- `yarn fabric-example android`: run the example app on Android.
-- `yarn fabric-example ios`: run the example app on iOS.
 
 ### Sending a pull request
 

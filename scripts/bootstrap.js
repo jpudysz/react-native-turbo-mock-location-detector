@@ -23,8 +23,7 @@ if (process.cwd() !== root || args.length) {
   result = child_process.spawnSync('yarn', args, options)
 } else {
   // If `yarn` is run without arguments, perform bootstrap
-  result = child_process.spawnSync('yarn', ['bootstrap:example'], options)
-  result = child_process.spawnSync('yarn', ['bootstrap:fabric-example'], options)
+  result = child_process.spawnSync('yarn', ['bootstrap'], options)
 }
 
 process.exitCode = result.status

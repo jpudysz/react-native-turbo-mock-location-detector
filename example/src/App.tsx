@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, Platform, Text, ActivityIndicator, Button } from 'react-native'
-import { isMockingLocation, MockLocationDetectorError } from 'react-native-turbo-mock-location-detector'
+import { isMockingLocation, MockLocationDetectorError } from 'react-native-mock-location-detector'
 import { PERMISSIONS, Permission } from 'react-native-permissions'
 import { usePermission } from './usePermission'
 
@@ -13,7 +13,7 @@ export const App = () => {
     const [isLoading, setLoading] = useState(false)
     const [isLocationMocked, setIsLocationMocked] = useState<boolean>()
     const { startPermissionFlow, isEnabled } = usePermission(LOCATION_PERMISSION as Permission)
-    const checkIfLocationisMocked = () => {
+    const checkIfLocationIsMocked = () => {
         setLoading(true)
 
         isMockingLocation()
@@ -51,7 +51,7 @@ export const App = () => {
                             title="Try again"
                             onPress={() => {
                                 setIsLocationMocked(undefined)
-                                checkIfLocationisMocked()
+                                checkIfLocationIsMocked()
                             }}
                         />
                         <Button
@@ -60,7 +60,7 @@ export const App = () => {
                                 Array.from(new Array(10))
                                     .forEach(() => {
                                         setIsLocationMocked(undefined)
-                                        checkIfLocationisMocked()
+                                        checkIfLocationIsMocked()
                                     })
                             }}
                         />
