@@ -31,6 +31,10 @@ export const App = () => {
     }, [isEnabled, startPermissionFlow])
 
     const getMockState = () => {
+        if (isLocationMocked === undefined) {
+            return '-'
+        }
+
         return isLocationMocked
             ? 'mocked'
             : 'not mocked'

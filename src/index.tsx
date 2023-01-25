@@ -29,9 +29,9 @@ type MockLocationDetectorResult = {
 }
 
 export enum MockLocationDetectorErrorCode {
-    GPSNotEnabled = 0,
-    NoLocationPermissionEnabled = 1,
-    CantDetermine = 2
+    GPSNotEnabled = '0',
+    NoLocationPermissionEnabled = '1',
+    CantDetermine = '2'
 }
 
 export type MockLocationDetectorError = {
