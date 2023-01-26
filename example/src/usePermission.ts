@@ -22,7 +22,7 @@ export const usePermission = (permission: Permission) => {
         }
     }, [permission])
 
-    const showOpenSettingsModal = useCallback(onError => {
+    const showOpenSettingsModal = useCallback((onError?: () => void) => {
         Alert.alert('Oops!', 'You need to open settings manually', [
             {
                 text: 'Cancel',

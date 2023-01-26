@@ -1,6 +1,8 @@
 # react-native-turbo-mock-location-detector
 
-Library was written with TurboModules and Codegen. It also supports both old and new architectures.
+Protect your business from location spoofing. Mock location detector is designed to detect and prevent any attempts to spoof GPS location, making it the perfect solution for any use case that requires accurate location tracking. Common examples include fleet management and logistics apps where truck drivers may use tools like [Location Changer](https://www.ultfone.com/ios-location-changer.html) and [Mock Locations](https://play.google.com/store/apps/details?id=ru.gavrikov.mocklocations&hl=pl&gl=US).
+
+Library supports both new and old architecture of React Native.
 
 ## Installation
 
@@ -57,11 +59,11 @@ useEffect(() => {
 
 ## Support
 
-| Lib version | RN version        |
-|-------------|-------------------|
-| 1.0         | 0.68, 0.69, 0.70  |
+| Lib version | RN version       |
+|-------------|------------------|
+| 1.0 - 1.2   | 0.68, 0.69, 0.70 |
+| 1.3         | 0.71             |
 
-*Library may work on lower versions of React Native (with paper architecture), but it wasn't tested!*
 
 ## Testing
 Library was tested:

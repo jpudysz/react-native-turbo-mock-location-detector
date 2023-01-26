@@ -43,11 +43,9 @@ android.iml
 # Cocoapods
 #
 example/ios/Pods
-fabric-example/ios/Pods
 
 # Ruby
 example/vendor/
-fabric-example/vendor/
 
 # node.js
 #
