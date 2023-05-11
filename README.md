@@ -28,7 +28,7 @@ cd ios && pod install
 ## Usage
 
 ```typescript
-import { isMockingLocation, MockLocationDetectorErrorCode, MockLocationDetectorError } from 'react-native-mock-location-detector'
+import { isMockingLocation, MockLocationDetectorErrorCode, MockLocationDetectorError } from 'react-native-turbo-mock-location-detector'
 
 useEffect(() => {
     isMockingLocation()
