@@ -7,17 +7,26 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "pods": "pod-install --quiet"
+    "pods": "RCT_NEW_ARCH_ENABLED=1 pod-install --quiet",
+    "postinstall": "react-native setup-ios-permissions && yarn pods"
   },
   "dependencies": {
     "react": "18.2.0",
-    "react-native": "0.71.1",
-    "react-native-permissions": "3.6.1"
+    "react-native": "0.72.1",
+    "react-native-permissions": "3.8.1"
   },
   "devDependencies": {
-    "@babel/core": "7.20.12",
-    "@babel/runtime": "7.20.13",
-    "babel-plugin-module-resolver": "4.1.0",
-    "metro-react-native-babel-preset": "0.74.1"
-  }
+    "@babel/core": "7.22.5",
+    "@babel/runtime": "7.22.5",
+    "@react-native/metro-config": "0.72.7",
+    "@types/metro-config": "0.76.3",
+    "metro-react-native-babel-preset": "0.76.7",
+    "pod-install": "0.1.38"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "reactNativePermissionsIOS": [
+    "LocationWhenInUse"
+  ]
 }

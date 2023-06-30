@@ -11,6 +11,9 @@ yarn add react-native-turbo-mock-location-detector
 cd ios && pod install
 ```
 
+## Expo
+Works with no additional config
+
 ## Prerequisites
 
 1. Use eg. [react-native-permissions](https://github.com/zoontek/react-native-permissions) to ask for location permission
@@ -59,10 +62,10 @@ useEffect(() => {
 
 ## Support
 
-| Lib version | RN version       |
-|-------------|------------------|
-| 1.0 - 1.2   | 0.68, 0.69, 0.70 |
-| 2.0         | 0.71             |
+| Lib version | RN version |
+|-------------|------------|
+| 1.0 - 1.2   | \>= 0.68   |
+| 2.0         | \>= 0.71   |
 
 
 ## Testing

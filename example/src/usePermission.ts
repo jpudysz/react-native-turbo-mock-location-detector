@@ -1,6 +1,7 @@
 import { Alert } from 'react-native'
 import { useCallback, useEffect, useState } from 'react'
-import { request, check, Permission, PermissionStatus, RESULTS, openSettings } from 'react-native-permissions'
+import { request, check, RESULTS, openSettings } from 'react-native-permissions'
+import type { Permission, PermissionStatus } from 'react-native-permissions'
 
 // use Platform.select to switch between iOS/Android permissions
 export const usePermission = (permission: Permission) => {
