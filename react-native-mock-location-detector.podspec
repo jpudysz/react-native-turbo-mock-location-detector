@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.platforms    = { :ios => "13.0" }
   s.source       = { :git => "https://github.com/jpudysz/react-native-turbo-mock-location-detector.git", :tag => "#{s.version}" }
 
-  s.source_files = "package/ios/**/*.{h,m,mm}"
+  s.source_files = "ios/**/*.{h,m,mm}"
 
   install_modules_dependencies(s)
 end

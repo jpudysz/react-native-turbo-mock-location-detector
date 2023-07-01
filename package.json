@@ -5,26 +5,32 @@
   "main": "./lib/commonjs/index",
   "module": "./lib/module/index",
   "types": "./lib/typescript/index.d.ts",
-  "react-native": "./package/src/index",
-  "source": "./package/src/index",
+  "react-native": "./src/index",
+  "source": "./src/index",
   "files": [
-    "package/src",
+    "src",
     "lib",
-    "package/android",
-    "package/ios",
-    "package/cpp",
+    "android",
+    "ios",
+    "cpp",
     "react-native-mock-location-detector.podspec",
     "!lib/typescript/example",
-    "!package/android/build",
-    "!package/ios/build",
+    "!android/build",
+    "!ios/build",
+    "!android/build",
+    "!android/gradle",
+    "!android/gradlew",
+    "!android/gradlew.bat",
+    "!android/local.properties",
     "!**/__tests__",
     "!**/__fixtures__",
-    "!**/__mocks__"
+    "!**/__mocks__",
+    "!**/.*"
   ],
   "scripts": {
     "test": "jest --passWithNoTests",
     "typescript": "tsc --noEmit",
-    "lint": "eslint \"package/**/*.{js,ts,tsx}\"",
+    "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "prepare": "bob build",
     "release": "release-it",
     "example": "yarn --cwd example",
@@ -35,13 +41,13 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/jpudysz/react-native-mock-location-detector",
+  "repository": "https://github.com/jpudysz/react-native-turbo-mock-location-detector",
   "author": "Jacek Pudysz <jacekpudysz@gmail.com> (https://github.com/jpudysz)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jpudysz/react-native-mock-location-detector/issues"
+    "url": "https://github.com/jpudysz/react-native-turbo-mock-location-detector/issues"
   },
-  "homepage": "https://github.com/jpudysz/react-native-mock-location-detector#readme",
+  "homepage": "https://github.com/jpudysz/react-native-turbo-mock-location-detector#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
@@ -115,7 +121,7 @@
     "lib/"
   ],
   "react-native-builder-bob": {
-    "source": "package/src",
+    "source": "src",
     "output": "lib",
     "targets": [
       "commonjs",
@@ -131,7 +137,7 @@
   "codegenConfig": {
     "name": "RNMockLocationDetectorSpec",
     "type": "modules",
-    "jsSrcsDir": "package/src",
+    "jsSrcsDir": "src",
     "android": {
       "javaPackageName": "com.reactnativemocklocationdetector"
     }

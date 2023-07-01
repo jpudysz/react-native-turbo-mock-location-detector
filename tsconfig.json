@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "react-native-mock-location-detector": ["./package/src/index"]
+      "react-native-mock-location-detector": ["./src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
