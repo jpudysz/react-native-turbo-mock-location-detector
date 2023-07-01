@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, Platform, Text, ActivityIndicator, Button } from 'react-native'
-import { isMockingLocation, MockLocationDetectorError } from 'react-native-mock-location-detector'
-import { PERMISSIONS, Permission } from 'react-native-permissions'
+import { isMockingLocation } from 'react-native-mock-location-detector'
+import { PERMISSIONS } from 'react-native-permissions'
+import type { MockLocationDetectorError } from 'react-native-mock-location-detector'
+import type { Permission } from 'react-native-permissions'
 import { usePermission } from './usePermission'
 
 const LOCATION_PERMISSION = Platform.select({
@@ -47,7 +49,7 @@ export const App = () => {
                     <ActivityIndicator />
                 )
                 : (
-                    <View>
+                    <View style={styles.container}>
                         <Text style={styles.result}>
                             Location is {getMockState()}
                         </Text>
@@ -80,7 +82,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'white',
     },
     box: {
         width: 60,
