@@ -1,9 +1,8 @@
 const path = require('path')
-const pak = require('../package.json')
 
 module.exports = {
     dependencies: {
-        [pak.name]: {
+        'react-native-mock-location-detector': {
             root: path.resolve(__dirname, '../'),
         },
     },
