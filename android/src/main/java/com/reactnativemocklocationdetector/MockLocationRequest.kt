@@ -41,7 +41,13 @@ class MockLocationRequest(
             }
         }
 
+        // The methods below should be override to work properly on Android R and below, to understand better, read the official documentation https://developer.android.com/reference/android/location/LocationListener
+
         override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
+
+        override fun onProviderEnabled(provider: String) {}
+
+        override fun onProviderDisabled(provider: String) {}
     }
 
     @SuppressLint("MissingPermission")
