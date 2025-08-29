@@ -14,6 +14,8 @@ cd ios && pod install
 ## Expo
 Works with no additional config
 
+If you are using the Expo DevClient for testing your app, then you need to rebuild it in order to make this library work.
+
 ## Prerequisites
 
 1. Use eg. [react-native-permissions](https://github.com/zoontek/react-native-permissions) to ask for location permission
